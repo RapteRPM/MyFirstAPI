@@ -2,22 +2,22 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-# "Base de datos" en memoria (lista de usuarios)
+
 usuarios = ["Andres", "Maria"]
 
-# GET -> ver usuarios
+# GET  ver usuarios
 @app.route("/usuarios", methods=["GET"])
 def obtener_usuarios():
     return str(usuarios)
 
-# POST -> agregar usuario
+# POST  agregar usuario
 @app.route("/usuarios", methods=["POST"])
 def crear_usuario():
-    nombre = request.form.get("nombre")  # recibe desde un formulario o Postman
+    nombre = request.form.get("nombre")  
     usuarios.append(nombre)
     return f"Usuario {nombre} agregado!"
 
-# PUT -> actualizar usuario
+# PUT  actualizar usuario
 @app.route("/usuarios/<int:pos>", methods=["PUT"])
 def actualizar_usuario(pos):
     nuevo_nombre = request.form.get("nombre")
@@ -26,7 +26,7 @@ def actualizar_usuario(pos):
         return f"Usuario en posición {pos} actualizado a {nuevo_nombre}"
     return "Usuario no encontrado"
 
-# DELETE -> eliminar usuario
+# DELETE  eliminar usuario
 @app.route("/usuarios/<int:pos>", methods=["DELETE"])
 def eliminar_usuario(pos):
     if 0 <= pos < len(usuarios):
